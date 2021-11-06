@@ -1,4 +1,4 @@
 # Antrian-Internal
-Tugas akhir pemrograman 3 Java netbeans
+Tugas akhir Model dan Simulasi menggunakan java Netbeans
 
 
