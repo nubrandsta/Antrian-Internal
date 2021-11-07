@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class Tambah extends javax.swing.JFrame {
     
     String currentCluster;
+    String[] proposedDelta;
     private DefaultTableModel modelPesanan;
     private DefaultTableModel modelMenu;
 
@@ -200,6 +201,11 @@ public class Tambah extends javax.swing.JFrame {
                 "Id_menu", "Nama_menu", "Harga_menu", "Kategori_menu", "Jumlah"
             }
         ));
+        tbl_pesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_pesananMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_pesanan);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -215,10 +221,20 @@ public class Tambah extends javax.swing.JFrame {
         btn_kurang.setText("KURANG");
 
         btn_hapus.setText("HAPUS");
+        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapusActionPerformed(evt);
+            }
+        });
 
         btn_simpan.setText("SIMPAN");
 
         btn_back.setText("KEMBALI");
+        btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -360,6 +376,24 @@ public class Tambah extends javax.swing.JFrame {
         txt_cluster.setText(String.valueOf(currentCluster));
         showData();
     }//GEN-LAST:event_formWindowActivated
+
+    private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        // TODO add your handling code here:
+        new Main().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_backActionPerformed
+
+    private void tbl_pesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_pesananMouseClicked
+        // TODO add your handling code here:
+        
+       
+        
+    }//GEN-LAST:event_tbl_pesananMouseClicked
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+        // TODO add your handling code here:
+         modelPesanan.removeRow(tbl_pesanan.getSelectedRow());
+    }//GEN-LAST:event_btn_hapusActionPerformed
 
     /**
      * @param args the command line arguments

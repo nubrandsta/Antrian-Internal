@@ -186,6 +186,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_pesananMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -214,6 +217,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="HAPUS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_hapusActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_simpan">
       <Properties>
@@ -224,6 +230,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="KEMBALI"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_backActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
