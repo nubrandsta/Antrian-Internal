@@ -25,9 +25,29 @@ public class Main extends javax.swing.JFrame {
     
     
     public String selectedKey;
+    public int idCluster;
     
     public void clearSelected(){
         selectedKey = "";
+    }
+    
+    public int generateCluster(){
+        String cluster = "";
+        String query = "SELECT MAX(id_cluster) FROM tb_antrian";
+        java.sql.Connection conn = new Koneksi().connect();
+        try{
+            java.sql.Statement state = conn.createStatement();
+            java.sql.ResultSet result = state.executeQuery(query);
+            while(result.next()){
+                cluster = result.getString("id_cluster");
+                System.out.println("generated "+cluster);
+            }
+        }
+        catch(Exception e){
+            System.out.println("error");
+                    }
+        int newCluster = Integer.parseInt(cluster)+1;
+        return newCluster;
     }
     
     public String generateID(String kategori,String idMenu, String cluster){
@@ -36,7 +56,7 @@ public class Main extends javax.swing.JFrame {
         String month = date.substring(5,6);
         String year = date.substring(2,3);
         String menuShort = idMenu.substring(3);
-        
+       
         String idPesanan = kategori + day + month + year + menuShort + cluster;
         
         
@@ -192,6 +212,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btn_edit.setText("EDIT PESANAN");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
 
         btn_batal.setText("BATALKAN PESANAN");
 
@@ -274,8 +299,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         // TODO add your handling code here:
-        String cluster = sqlGet("id_cluster",selectedKey);
-        System.out.println(cluster);
+        new Tambah(idCluster).setVisible(true);
         
         
         
@@ -308,8 +332,17 @@ public class Main extends javax.swing.JFrame {
         
         int dataAntrian = tbl_antrian.getSelectedRow();
         selectedKey = modelTabel.getValueAt(dataAntrian,0).toString();
+        idCluster = Integer.parseInt(modelTabel.getValueAt(dataAntrian,1).toString());
         System.out.println(selectedKey);
+        System.out.println(idCluster);
     }//GEN-LAST:event_tbl_antrianMouseClicked
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        // TODO add your handling code here:
+        
+        new Tambah(idCluster).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_editActionPerformed
 
     /**
      * @param args the command line arguments
