@@ -18,16 +18,99 @@ import java.time.LocalDateTime;
  */
 public class Tambah extends javax.swing.JFrame {
     
-    int currentCluster;
+    String currentCluster;
+    private DefaultTableModel modelPesanan;
+    private DefaultTableModel modelMenu;
 
     /**
      * Creates new form Tambah
      */
-    public Tambah(int idCluster) {
+    public Tambah(String idCluster) {
         currentCluster = idCluster;
         initComponents();
     }
     
+    public void showData(){
+        String idMenu;
+        
+        modelPesanan = new DefaultTableModel();
+        modelMenu = new DefaultTableModel();
+        
+        modelPesanan.addColumn("id menu");
+        modelPesanan.addColumn("jumlah pesan");
+        modelPesanan.addColumn("nama menu");
+        modelPesanan.addColumn("harga menu");
+        modelPesanan.addColumn("kategori menu");
+        
+        modelMenu.addColumn("id menu");
+        modelMenu.addColumn("nama menu");
+        modelMenu.addColumn("harga menu");
+        modelMenu.addColumn("kategori menu");
+        
+        tbl_pesanan.setModel(modelPesanan);
+        tbl_menu.setModel(modelMenu);
+        
+        java.sql.Connection conn = new Koneksi().connect();
+        String query = "SELECT id_menu,jumlah FROM tb_antrian WHERE id_cluster = '"+currentCluster+"'";
+        try{
+            java.sql.Statement state = conn.createStatement();
+            java.sql.ResultSet result = state.executeQuery(query);
+            int rowid=0;
+           
+            while(result.next()){
+                modelPesanan.addRow(new Object[] {
+                    result.getString("id_menu"),
+                    result.getString("jumlah")
+                });
+                idMenu = result.getString("id_menu");
+                java.sql.Connection conn2 = new Koneksi().connect();
+                String query2 = "SELECT nama_menu, harga_menu,kategori_menu FROM tb_menu WHERE id_menu ='"+idMenu+"'";
+                try{
+                    java.sql.Statement state2 = conn2.createStatement();
+                    java.sql.ResultSet result2 = state2.executeQuery(query2);
+                    while(result2.next()){
+                        modelPesanan.setValueAt(result2.getString("nama_menu"),rowid,2);
+                        modelPesanan.setValueAt(result2.getString("harga_menu"),rowid,3);
+                        modelPesanan.setValueAt(result2.getString("kategori_menu"),rowid,4);
+                    }
+                }
+                catch(Exception e){
+                    System.out.println("TEST 2");
+                    e.printStackTrace();
+                }
+                rowid++;
+                
+            }
+            System.out.println("TEST");
+            
+        }
+        catch(Exception e){
+            System.out.println(query);
+            System.out.println(e.toString());
+            
+        }
+        java.sql.Connection conn3 = new Koneksi().connect();
+        String query3 = "SELECT * FROM tb_menu";
+        try{
+            java.sql.Statement state3 = conn3.createStatement();
+            java.sql.ResultSet result3 = state3.executeQuery(query3);
+            
+            while(result3.next()){
+                modelMenu.addRow(new Object[] {
+                result3.getString("id_menu"),
+                result3.getString("nama_menu"),
+                result3.getString("harga_menu"),
+                result3.getString("kategori_menu")
+                } );
+            }
+        }
+        catch(Exception e){
+            
+        }
+        
+        
+        
+    }
     
 
     /**
@@ -275,6 +358,7 @@ public class Tambah extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         txt_cluster.setText(String.valueOf(currentCluster));
+        showData();
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -307,7 +391,7 @@ public class Tambah extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tambah(0).setVisible(true);
+                new Tambah("").setVisible(true);
             }
         });
     }

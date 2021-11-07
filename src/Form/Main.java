@@ -25,7 +25,7 @@ public class Main extends javax.swing.JFrame {
     
     
     public String selectedKey;
-    public int idCluster;
+    public String idCluster;
     
     public void clearSelected(){
         selectedKey = "";
@@ -332,7 +332,7 @@ public class Main extends javax.swing.JFrame {
         
         int dataAntrian = tbl_antrian.getSelectedRow();
         selectedKey = modelTabel.getValueAt(dataAntrian,0).toString();
-        idCluster = Integer.parseInt(modelTabel.getValueAt(dataAntrian,1).toString());
+        idCluster = modelTabel.getValueAt(dataAntrian,1).toString();
         System.out.println(selectedKey);
         System.out.println(idCluster);
     }//GEN-LAST:event_tbl_antrianMouseClicked
