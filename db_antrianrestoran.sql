@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2021 at 05:11 AM
+-- Generation Time: Nov 07, 2021 at 10:53 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -29,11 +29,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tb_antrian` (
   `id_pesanan` varchar(12) NOT NULL,
-  `id_cluster` varchar(3) NOT NULL,
+  `id_cluster` varchar(9) NOT NULL,
   `id_menu` varchar(4) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `no_antri` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_antrian`
+--
+
+INSERT INTO `tb_antrian` (`id_pesanan`, `id_cluster`, `id_menu`, `jumlah`, `no_antri`) VALUES
+('AG0711212002', '071121002', 'AG02', 2, 1),
+('MA0711211001', '071121001', 'MA01', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -47,6 +55,20 @@ CREATE TABLE `tb_menu` (
   `harga_menu` int(11) NOT NULL,
   `kategori_menu` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_menu`
+--
+
+INSERT INTO `tb_menu` (`id_menu`, `nama_menu`, `harga_menu`, `kategori_menu`) VALUES
+('AB01', 'Ayam Bakar', 14000, 'AB'),
+('AB02', 'Ayam Bakar Madu', 16000, 'AB'),
+('AG01', 'Ayam Goreng', 7000, 'AG'),
+('AG02', 'Ayam Penyet', 10000, 'AG'),
+('AG03', 'Ayam Geprek', 14000, 'AG'),
+('MA01', 'Mie Ayam', 10000, 'MA'),
+('MA02', 'Bakso', 10000, 'MA'),
+('MA03', 'Mie Ayam Bakso', 15000, 'MA');
 
 -- --------------------------------------------------------
 
